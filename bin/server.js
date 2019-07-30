@@ -4,12 +4,17 @@ var express = require('express'),
     mongoose = require('mongoose'),
     User = require('../models/users'), //created model loading here
     bodyParser = require('body-parser');
+    var indexRouter = require('../routes/index');
+    var path = require('path');
 
 // mongoose instance connection url connection
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost:27017/rudyfridian',{ useNewUrlParser: true });
 
+app.set('views', path.join(__dirname, '../views'));
+app.set('view engine', 'pug');
 
+app.use('/', indexRouter);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
