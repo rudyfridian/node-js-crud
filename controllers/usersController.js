@@ -1,7 +1,7 @@
 var mongoose = require('mongoose'),
     User = mongoose.model('User');
-var redisClient = require('redis').createClient;
-var redis = redisClient(6379, 'localhost');
+// var redisClient = require('redis').createClient;
+// var redis = redisClient(6379, 'localhost');
 
 exports.list_all_users = function(req, res) {
     User.find({}, function(err, user) {
@@ -24,24 +24,12 @@ exports.create_a_user = function(req, res) {
 };
 
 
-exports.read_a_user_by_account_number = function(req, res) {
-    redis.get(req.query.accountNumber,function (err,reply) {
-        if(err) {
+exports.read_a_user_by_account_number = function (req, res) {
+    User.findOne({accountNumber: req.query.accountNumber}, function (err, user) {
+        if (err)
             res.send(err);
-        }
-        else if (reply){
-            res.json(reply)
-        }
-        else {
-            User.findOne({accountNumber: req.query.accountNumber}, function(err, user) {
-                if (err)
-                    res.send(err);
-                res.json(user);
-            });
-        }
-
-    })
-
+        res.json(user);
+    });
 };
 
 
