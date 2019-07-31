@@ -24,7 +24,7 @@ exports.create_a_user = function(req, res) {
 
 
 exports.read_a_user_by_account_number = function(req, res) {
-    client.get(req.query.accountNumber,function (err,reply) {
+    client.get(req.params.accountNumber,function (err,reply) {
         if(err) {
             res.send(err);
         }
@@ -32,7 +32,7 @@ exports.read_a_user_by_account_number = function(req, res) {
             res.json(reply)
         }
         else {
-            User.findOne({accountNumber: req.query.accountNumber}, function(err, user) {
+            User.findOne({accountNumber: req.params.accountNumber}, function(err, user) {
                 if (err)
                     res.send(err);
                 res.json(user);
