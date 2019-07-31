@@ -12,14 +12,14 @@ var User = new Schema({
         required: true
     },
     accountNumber: {
-        type: String,
+        type: Number,
         required: true
     },
     emailAddress: {
         type: String,
     },
     identityNumber: {
-        type: String,
+        type: Number,
         required: true
     },
 },{collection : 'rudyfridian'});

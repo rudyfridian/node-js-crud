@@ -25,7 +25,7 @@ exports.create_a_user = function(req, res) {
 
 
 exports.read_a_user_by_account_number = function (req, res) {
-    User.findOne({accountNumber: req.query.accountNumber}, function (err, user) {
+    User.findOne({accountNumber: req.params.accountNumber}, function (err, user) {
         if (err)
             res.send(err);
         res.json(user);
@@ -34,7 +34,7 @@ exports.read_a_user_by_account_number = function (req, res) {
 
 
 exports.update_a_user_by_account_number = function(req, res) {
-    User.findOneAndUpdate({accountNumber: req.query.accountNumber}, req.body, {new: true}, function(err, user) {
+    User.findOneAndUpdate({accountNumber: req.params.accountNumber}, req.body, {new: true}, function(err, user) {
         if (err)
             res.send(err);
         res.json(user);
@@ -44,7 +44,7 @@ exports.update_a_user_by_account_number = function(req, res) {
 exports.delete_a_user_by_account_number = function(req, res) {
 
     User.findOneAndDelete({
-        accountNumber: req.query.accountNumber
+        accountNumber: req.params.accountNumber
     }, function(err, user) {
         if (err)
             res.send(err);
@@ -53,7 +53,8 @@ exports.delete_a_user_by_account_number = function(req, res) {
 };
 
 exports.read_a_user_by_identity_number = function(req, res) {
-    User.findOne({identityNumber: req.query.identityNumber}, function(err, user) {
+    User.findOne({identityNumber: req.params.identityNumber}, function(err, user) {
+        console.log(req.params.identityNumber);
         if (err)
             res.send(err);
         res.json(user);
@@ -61,7 +62,7 @@ exports.read_a_user_by_identity_number = function(req, res) {
 };
 
 exports.update_a_user_by_identity_number = function(req, res) {
-    User.findOneAndUpdate({identityNumber: req.query.identityNumber}, req.body, {new: true}, function(err, user) {
+    User.findOneAndUpdate({identityNumber: req.params.identityNumber}, req.body, {new: true}, function(err, user) {
         if (err)
             res.send(err);
         res.json(user);
@@ -71,7 +72,7 @@ exports.update_a_user_by_identity_number = function(req, res) {
 exports.delete_a_user_by_identity_number = function(req, res) {
 
     User.deleteOne({
-        identityNumber: req.query.identityNumber
+        identityNumber: req.params.identityNumber
     }, function(err, user) {
         if (err)
             res.send(err);

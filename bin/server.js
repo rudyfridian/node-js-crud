@@ -9,7 +9,9 @@ var express = require('express'),
 
 // mongoose instance connection url connection
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/rudyfridian',{ useNewUrlParser: true });
+// mongoose.connect('mongodb://localhost:27017/rudyfridian',{ useNewUrlParser: true });
+mongoose.connect('mongodb+srv://rudyfridian:rudyfridian@cluster0-djlih.mongodb.net/rudyfridian?retryWrites=true&w=majority',{ useNewUrlParser: true });
+
 
 app.set('views', path.join(__dirname, '../views'));
 app.set('view engine', 'pug');
