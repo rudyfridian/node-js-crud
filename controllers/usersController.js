@@ -1,12 +1,21 @@
 var mongoose = require('mongoose'),
     User = mongoose.model('User');
 var client = require('redis').createClient(process.env.REDIS_URL);
+var jwt = require('jsonwebtoken');
+var config = require('../config');
 
 exports.list_all_users = function(req, res) {
-    User.find({}, function(err, user) {
-        if (err)
-            res.send(err);
-        res.json(user);
+    var token = req.headers['x-access-token'];
+    if (!token) return res.status(401).send({ auth: false, message: 'No token provided.' });
+
+    jwt.verify(token, config.secret, function(err, decoded) {
+        if (err) return res.status(500).send({ auth: false, message: 'Failed to authenticate token.' });
+
+        User.find({}, function(err, user) {
+            if (err)
+                res.send(err);
+            res.json(user);
+        });
     });
 };
 
